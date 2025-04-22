@@ -5,21 +5,105 @@
     margin: 0;
     padding: 0;
 }
-
+html,body {
+    font-family: Raleway;
+    overflow:hidden;
+    width:100%;
+    height:100%;
+    position:absolute;
+    background: linear-gradient(25deg,#16054A,#C8A6B4);
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.4);
+}
+.container  {
+    width:100%;
+    height:100%;
+    position:absolute;
+}
+#blurCanvasTop{
+    left:0%;
+    top:0%;
+    position:absolute;
+}
+#blurCanvasBottom{
+    left:50%;
+    top:0;
+    position:absolute;
+}
+.content {
+    left:15%;
+    top:20%;
+    width:70%;
+    position:relative;
+}
+h1.title {
+    color:white;
+    font-size: 4vw;
+    display:inline;
+    font-weight:500;
+}
+p.desc{
+    position:relative;
+    width:100%;
+    font-size:4vw;
+    color:rgba(255,255,255,1);
+    font-weight: 200;
+    margin-bottom:40px;
+}
+.contacts {
+    position:absolute;
+    right:0%;
+    bottom:0;
+    margin-bottom:1vw;
+    margin-right:1vw;
+}
+.contact li {
+    list-style-type:none;
+    float:left;
+    color: rgba(255,255,255,0.8);
+    font-weight:100;
+    font-size:17px;
+}
+.contact li a {
+    text-decoration:none;
+    color: rgba(255,255,255,0.8);
+}
+.contact li a:hover{
+    color:rgba(255,255,255,1);
+}
+.contact li~li {
+    margin-left:1vw;
+}
+.blur {
+    width:100%;
+    height:100%;
+    position:absolute;
+    overflow:hidden;
+}
+.blurTop{
+    left:40%;
+    top:-110%;
+    transform:rotate(20deg);
+    transform-origin: 0 100%;
+}
+.blurBottom{
+    left:-60%;
+    top:100%;
+    transform:rotate(20deg);
+    transform-origin: 100% 0%;
+}
 body {
-    font-family: 'Montserrat', sans-serif;
-    background: #0f0f0f url('bg.jpg') center/cover no-repeat;
+    font-family: 'Montserrat', Sans serif;
+    background: #0f0f0f url('backround.png') center/cover no-repeat;
     color: #ffffff;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-.container {
+.main_container {
     width: 100%;
     max-width: 1000px;
-    padding: 20px;
+    margin: 0 auto;
 }
 
 header {
@@ -30,9 +114,9 @@ header {
 .logo {
     width: 250px;
     height: 250px;
-    border-radius: 10px;
+    border-radius: 100%;
     object-fit: contain;
-    margin-bottom: 10px;
+    border: 1px solid ;
 }
 
 h1 {
@@ -127,10 +211,14 @@ strong {
     gap: 10px;
     font-weight: 600;
     font-size: 0.95rem;
+
+}
+.links a img {
+    filter: invert(1);
 }
 
 .links a:hover {
-    color: #00ffff;
+    color: #ed95f1;
 }
 
 footer {
@@ -138,4 +226,7 @@ footer {
     font-size: 1rem;
     color: #777;
     margin-top: 50px;
+}
+@media (min-width: 320px) and (max-width: 375px) {
+
 }
