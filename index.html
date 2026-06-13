@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -243,9 +243,43 @@ body {
   .socials { grid-template-columns: 1fr; }
   .bio { text-align: left; }
 }
+
+/* Language switch */
+.lang-switch {
+  position: fixed;
+  top: 20px; right: 20px;
+  z-index: 100;
+  display: flex; gap: 2px;
+  padding: 3px;
+  background: rgba(17,17,24,0.7);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0; animation: fadeUp 0.6s 0.15s ease forwards;
+}
+.lang-btn {
+  background: transparent; border: none; outline: none;
+  color: var(--muted); cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  padding: 5px 9px; border-radius: 5px;
+  transition: all 0.2s ease;
+}
+.lang-btn:hover { color: var(--text); }
+.lang-btn.active { background: var(--accent); color: #fff; }
+
+@media (max-width: 540px) {
+  .lang-switch { top: 14px; right: 14px; }
+}
 </style>
 </head>
 <body>
+
+<div class="lang-switch">
+  <button class="lang-btn" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="ru">RU</button>
+</div>
 
 <div class="noise"></div>
 <div class="glow"></div>
@@ -261,10 +295,10 @@ body {
     <div class="hero-text">
       <div class="name">parumi</div>
       <div class="role">// sysadmin · devops · scripting</div>
-      <div class="bio">
-        Привет! :3 Я — системный администратор.<br>
-        Настраиваю <span>серверы</span>, пишу <span>скрипты</span>.<br>
-        По вопросам сотрудничества — пишите!
+      <div class="bio" data-i18n="bio">
+        Hi! :3 I'm a system administrator.<br>
+        I configure <span>servers</span> and write <span>scripts</span>.<br>
+        For collaboration inquiries — get in touch!
       </div>
     </div>
   </div>
@@ -281,14 +315,14 @@ body {
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/>
       </svg>
-      Telegram ЛС
+      Telegram <span data-i18n="tg_dm">DM</span>
     </a>
   </div>
 
   <div class="divider"></div>
 
   <div class="section s1">
-    <div class="section-label">проекты</div>
+    <div class="section-label" data-i18n="projects">projects</div>
     <div class="project-list">
       <a href="#" class="project-item">
         <span class="project-name">ServerMonitor</span>
@@ -315,13 +349,13 @@ body {
   </div>
 
   <div class="section s2">
-    <div class="section-label">соц-сети</div>
+    <div class="section-label" data-i18n="socials">socials</div>
     <div class="socials">
       <a href="https://t.me/ParumiLife" class="social-link" target="_blank" rel="noopener">
         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/>
         </svg>
-        Telegram канал
+        Telegram <span data-i18n="tg_channel">channel</span>
       </a>
       <a href="https://www.youtube.com/@Parumi" class="social-link" target="_blank" rel="noopener">
         <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -339,7 +373,7 @@ body {
   </div>
 
   <div class="section s3">
-    <div class="section-label">поддержка</div>
+    <div class="section-label" data-i18n="support">support</div>
     <div class="support-grid">
       <a href="#" class="support-card">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -362,9 +396,50 @@ body {
 
   <div class="footer s4">
     <span>2025 © parumi.ru</span>
-    <span class="footer-status">// <em>в разработке</em></span>
+    <span class="footer-status">// <em data-i18n="wip">in development</em></span>
   </div>
 
 </div>
+
+<script>
+(function () {
+  var translations = {
+    bio: {
+      en: "Hi! :3 I'm a system administrator.<br>I configure <span>servers</span> and write <span>scripts</span>.<br>For collaboration inquiries — get in touch!",
+      ru: "Привет! :3 Я — системный администратор.<br>Настраиваю <span>серверы</span>, пишу <span>скрипты</span>.<br>По вопросам сотрудничества — пишите!"
+    },
+    tg_dm:      { en: "DM",       ru: "ЛС" },
+    projects:   { en: "projects", ru: "проекты" },
+    socials:    { en: "socials",  ru: "соц-сети" },
+    support:    { en: "support",  ru: "поддержка" },
+    tg_channel: { en: "channel",  ru: "канал" },
+    wip:        { en: "in development", ru: "в разработке" }
+  };
+
+  function setLang(lang) {
+    if (lang !== 'en' && lang !== 'ru') lang = 'en';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var t = translations[el.getAttribute('data-i18n')];
+      if (t && t[lang] !== undefined) el.innerHTML = t[lang];
+    });
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    try { localStorage.setItem('parumi-lang', lang); } catch (e) {}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setLang(btn.getAttribute('data-lang'));
+    });
+  });
+
+  var saved = 'en';
+  try { saved = localStorage.getItem('parumi-lang') || 'en'; } catch (e) {}
+  setLang(saved);
+})();
+</script>
+
 </body>
 </html>
